@@ -257,10 +257,11 @@ public class MainActivity extends Activity {
     }
 
     public void sendMessage(View view) {
-        EditText editText = (EditText)findViewById(R.id.message);
+        EditText editText = findViewById(R.id.message);
 
         try {
-            byte[] wrapped = secureSession.wrap(editText.getText().toString().getBytes("UTF-8"));
+            byte[] message = editText.getText().toString().getBytes("UTF-8");
+            byte[] wrapped = secureSession.wrap(message);
             mWebSocketClient.send(Base64.encodeToString(wrapped, Base64.DEFAULT));
         } catch (SecureSessionException e) {
             e.printStackTrace();
